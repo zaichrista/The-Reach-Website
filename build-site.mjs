@@ -19,10 +19,17 @@ for (const asset of assets) {
 copyFileSync('deployment-headers.txt', 'dist/client/_headers');
 writeFileSync('dist/server/index.js', `export default {
   async fetch(request, env) {
-    const url = new URL(request.url);
-    if (url.pathname === '/') return Response.redirect(new URL('/index.html', url), 302);
-    if (env.ASSETS) return env.ASSETS.fetch(request);
-    return new Response('Not found', { status: 404 });
+    const response = env.ASSETS
+      ? await env.ASSETS.fetch(request)
+      : new Response('Asset binding missing', { status: 500 });
+    const headers = new Headers(response.headers);
+    headers.set('X-Content-Type-Options', 'nosniff');
+    headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    headers.set('X-Frame-Options', 'DENY');
+    headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    headers.set('Content-Security-Policy', "default-src 'self'; img-src 'self'; media-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'");
+    if (new URL(request.url).protocol === 'https:') headers.set('Strict-Transport-Security', 'max-age=31536000');
+    return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   }
 };\n`);
 writeFileSync('dist/server/wrangler.json', JSON.stringify({
@@ -30,6 +37,6 @@ writeFileSync('dist/server/wrangler.json', JSON.stringify({
   main: 'index.js',
   compatibility_date: '2026-05-15',
   no_bundle: true,
-  assets: { directory: '../client' },
+  assets: { directory: '../client', binding: 'ASSETS', run_worker_first: true },
 }, null, 2) + '\n');
 console.log(`Built ${assets.length} static assets for hosting.`);
