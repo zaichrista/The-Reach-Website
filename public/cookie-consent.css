@@ -1,0 +1,10 @@
+.restaurant-cookie-panel{position:fixed;z-index:10000;inset:auto 0 0;background:#fff;color:#222;border-top:2px solid #333;box-shadow:0 -4px 18px #0002;padding:1rem max(1rem,calc((100vw - 48rem)/2));font:1rem/1.5 system-ui,sans-serif;max-height:80vh;overflow:auto}
+.restaurant-cookie-panel h2{font-size:1.25rem;margin:0 0 .5rem}
+.restaurant-cookie-panel p{margin:.25rem 0 .5rem}
+.restaurant-cookie-panel a{color:#174f78;text-decoration:underline}
+.restaurant-cookie-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.restaurant-cookie-panel button{font:inherit;border:2px solid #174f78;border-radius:.25rem;padding:.5rem .8rem;min-height:2.75rem;background:#fff;color:#174f78;cursor:pointer}
+.restaurant-cookie-panel button:hover,.restaurant-cookie-panel button:focus-visible{background:#e8f2f8;outline:2px solid #174f78;outline-offset:2px}
+.restaurant-cookie-category{display:flex;align-items:flex-start;gap:.5rem;margin:.75rem 0}
+.restaurant-cookie-category input{width:1.2rem;height:1.2rem;flex:none}
+.restaurant-cookie-details[hidden]{display:none}
