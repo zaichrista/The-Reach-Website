@@ -1,9 +1,13 @@
 # Restaurant website privacy and cookies package
 
-This folder contains draft UK-facing legal pages and a consent component. It is not a live restaurant backend. The site source was not present in this folder, so the pages and script are ready to copy into the website once its files are available.
+This folder contains the restaurant landing page, draft UK-facing legal pages, and a consent component. It is a static website, not a reservation or contact backend.
 
 ## Files
 
+- `index.html`, `about.html`, `menu.html`, and `styles.css` — landing page, separate placeholder pages, and shared layout.
+- `site.js` — navigation colour change, video autoplay retry and fallback control, footer year, and cookie-settings connection.
+- `The Reach Promo live.mp4` — looping full-length H.264 hero video (about 10 MB) that fits the host's asset limit. `The Reach Promo take 1.mp4` is the untouched 348 MB original.
+- `Reach trial 1 transparent.png` — transparent-background copy of the supplied typeface image. The original `Reach trial 1.png` remains untouched.
 - `legal/privacy.html` — privacy notice template.
 - `legal/cookies.html` — cookie and similar technologies policy template.
 - `public/cookie-consent.js` and `public/cookie-consent.css` — optional-cookie choices.
@@ -12,15 +16,17 @@ This folder contains draft UK-facing legal pages and a consent component. It is 
 
 Replace every `[[...]]` placeholder in the legal pages. Confirm the restaurant's legal name, trading name, address, contact email, jurisdiction, actual forms, booking provider, analytics/advertising providers, hosting provider, payment/order providers, data retention periods, and international transfers. Remove sections for services the site does not use. Have the business owner or a qualified adviser review the final notices. The templates are not a claim that the site complies with law by themselves.
 
+Replace the visible `PLACEHOLDER` content on the landing, About Us, and Menu pages. The gold BOOK button currently takes visitors to the Reservations section on the home page; replace that link with the restaurant's external booking URL when supplied.
+
 Audit the actual website with browser developer tools. List every cookie, local-storage entry, pixel, embedded map/video, and third-party script. The cookie policy must name each technology, provider, purpose, duration, and category. Do not load non-essential analytics, marketing, or embeds before consent. If the site has no non-essential technologies, a banner is unnecessary; still publish an accurate cookie policy.
 
 ## Integrating consent
 
-Add the stylesheet and script to every page, then call `RestaurantCookieConsent.init()` after the script loads:
+The pages already load the stylesheet and script. If you add another page, include them and call `RestaurantCookieConsent.init()` after the script loads:
 
 ```html
-<link rel="stylesheet" href="/cookie-consent.css">
-<script src="/cookie-consent.js" defer></script>
+<link rel="stylesheet" href="/public/cookie-consent.css">
+<script src="/public/cookie-consent.js" defer></script>
 <script defer src="/site-cookie-setup.js"></script>
 ```
 
@@ -47,7 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
-The optional providers must be loaded **only** inside `enable`; remove any existing unconditional script tags, pixels, or embeds. Add a visible “Cookie settings” link or button on every page that calls `RestaurantCookieConsent.open()`. The component records the visitor's choice in one necessary first-party cookie for 180 days. It defaults to all optional categories off, offers equally prominent accept and reject buttons, and lets people change their choice. Increment `consentVersion` when purposes or providers change so visitors are asked again. A `disable` function is required for every optional category: revoking consent must also invoke the provider's opt-out and clear cookies that your domain can clear. Third-party cookies may require provider-specific controls.
+The landing page currently configures no optional categories, so it does not display a consent banner or set a choice cookie on load. Its footer has a cookie-settings button. The optional providers must be loaded **only** inside `enable`; remove any existing unconditional script tags, pixels, or embeds. The component records a visitor's choice in one necessary first-party cookie for 180 days when optional categories are configured. It defaults to all optional categories off, offers equally prominent accept and reject buttons, and lets people change their choice. Increment `consentVersion` when purposes or providers change so visitors are asked again. A `disable` function is required for every optional category: revoking consent must also invoke the provider's opt-out and clear cookies that your domain can clear. Third-party cookies may require provider-specific controls.
 
 The component does not inspect or automatically block scripts added elsewhere. It must be integrated with the real site's tag manager and provider settings. Serve the site and legal pages over HTTPS. Use security headers at the hosting layer, keep dependencies patched, restrict staff access, and avoid collecting information that the restaurant does not need.
 

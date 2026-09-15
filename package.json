@@ -1,0 +1,6 @@
+{
+  "name": "the-reach-website",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node build-site.mjs" }
+}

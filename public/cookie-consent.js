@@ -60,7 +60,10 @@
     panel = element('section', 'restaurant-cookie-panel');
     panel.setAttribute('aria-label', 'Cookie choices');
     const title = element('h2', '', 'Cookie choices');
-    const intro = element('p', '', 'Necessary cookies help this site remember your choice. Optional cookies are off unless you allow them.');
+    const hasOptional = Object.keys(options.categories).length > 0;
+    const intro = element('p', '', hasOptional
+      ? 'Necessary cookies help this site remember your choice. Optional cookies are off unless you allow them.'
+      : 'This site currently has no optional cookie categories to choose from.');
     const policy = element('a', '', 'Read our cookie policy');
     policy.href = options.policyUrl;
     const controls = element('div', 'restaurant-cookie-actions');
@@ -92,10 +95,17 @@
       if (!details.hidden) Object.values(inputs)[0]?.focus();
     });
     customise.setAttribute('aria-expanded', 'false');
-    controls.append(reject, accept, customise);
+    if (hasOptional) {
+      controls.append(reject, accept, customise);
+    } else {
+      const done = element('button', '', 'Close');
+      done.type = 'button';
+      done.addEventListener('click', close);
+      controls.append(done);
+    }
     panel.append(title, intro, policy, controls, details);
     document.body.append(panel);
-    reject.focus();
+    controls.querySelector('button')?.focus();
   }
 
   function init(config = {}) {
@@ -108,7 +118,8 @@
       }
     }
     const policyUrl = new URL(config.policyUrl ?? '/cookies.html', location.href);
-    if (policyUrl.origin !== location.origin || !['http:', 'https:'].includes(policyUrl.protocol)) {
+    if (policyUrl.origin !== location.origin ||
+        !['http:', 'https:', ...(location.protocol === 'file:' ? ['file:'] : [])].includes(policyUrl.protocol)) {
       throw new Error('Cookie policy must be a same-origin URL');
     }
     options = { categories, policyUrl: policyUrl.href, consentVersion: String(config.consentVersion ?? '1') };

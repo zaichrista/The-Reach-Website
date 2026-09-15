@@ -1,0 +1,50 @@
+:root{--mint:#cbe8d8;--orange:#bb7658;--ink:#29251f;--gold:#d9a52a;--white:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;color:var(--ink);background:var(--white);font-family:Arial,Helvetica,sans-serif}
+section{display:grid;place-items:center;text-align:center;padding:2rem}
+h1,h2,p,blockquote{margin:0}
+.site-header{position:fixed;z-index:100;top:0;left:0;right:0;min-height:88px;padding:12px clamp(1rem,3vw,3rem);display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:1.5rem;background:transparent;color:#fff;transition:background-color .22s,color .22s,box-shadow .22s}
+.site-header.is-solid{background:#fff;color:var(--ink);box-shadow:0 1px 10px #00000012}
+.header-brand{display:block;justify-self:start;width:clamp(150px,17vw,235px);line-height:0}
+.header-brand img{display:block;width:100%;height:auto;filter:drop-shadow(0 1px 3px #ffffff99)}
+.is-solid .header-brand img{filter:none}
+.header-nav{display:flex;align-items:center;justify-content:center;gap:clamp(1rem,2.3vw,2.4rem);white-space:nowrap}
+.header-nav a{color:inherit;text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.13em;text-underline-offset:.4em}
+.header-nav a:hover,.header-nav a:focus-visible,.header-nav a[aria-current="page"]{text-decoration:underline}
+.header-actions{display:flex;justify-content:flex-end;gap:.6rem}
+.gold-button{display:grid;place-items:center;min-width:76px;min-height:42px;padding:.5rem 1rem;background:var(--gold);color:#201a0d;text-decoration:none;font-size:.76rem;font-weight:700;letter-spacing:.12em;transition:background-color .2s}
+.gold-button:hover,.gold-button:focus-visible{background:#efbd42;outline:2px solid currentColor;outline-offset:2px}
+.hero{position:relative;isolation:isolate;min-height:100vh;min-height:100svh;overflow:hidden;background:#282825;color:#fff}
+.hero-video,.hero-shade{position:absolute;inset:0;width:100%;height:100%}
+.hero-video{object-fit:cover;z-index:0}
+.hero-shade{background:linear-gradient(#00000034,#0000001a 35%,#00000030);z-index:1;pointer-events:none}
+.video-play{position:absolute;z-index:3;left:clamp(1rem,3vw,3rem);bottom:2rem;border:1px solid #fff;background:#0009;color:#fff;padding:.7rem 1rem;font:600 .8rem Arial,Helvetica,sans-serif;letter-spacing:.08em;cursor:pointer}
+.video-play[hidden]{display:none}
+.video-play:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.hero h1{position:relative;z-index:2;font-family:"Times New Roman",Times,serif;font-weight:400;font-size:clamp(3.5rem,10vw,10rem);letter-spacing:-.055em;line-height:1;text-shadow:0 2px 16px #0006}
+.menu-section{min-height:78vh;min-height:78svh;background:var(--orange)}
+.about-section{min-height:50vh;min-height:50svh;background:var(--mint)}
+.quote-section{min-height:100vh;min-height:100svh;background:var(--white)}
+.reservations-section{min-height:33.333vh;min-height:33.333svh;background:var(--mint)}
+.menu-section h2,.about-section h2,.reservations-section h2,.interior-hero h1{font-family:"Times New Roman",Times,serif;font-size:clamp(3.25rem,9vw,8rem);font-weight:400;letter-spacing:-.055em;line-height:1}
+.quote-section blockquote{font-family:"Times New Roman",Times,serif;font-size:clamp(2.25rem,6vw,5.5rem);font-style:italic;line-height:1.12;max-width:16ch}
+.interior-hero{min-height:100vh;min-height:100svh;align-content:center;gap:1.5rem;padding-top:110px}
+.interior-hero p{font-family:"Times New Roman",Times,serif;font-size:clamp(1.3rem,3vw,2rem)}
+.about-interior{background:var(--mint)}
+.menu-interior{background:var(--orange)}
+.site-footer{background:#fff;padding:clamp(4rem,8vw,7rem) clamp(1.25rem,5vw,5rem) .6rem}
+.footer-inner{max-width:90rem;margin:auto}
+.footer-wordmark{display:block;width:100%;height:auto;max-width:90rem;margin:0 auto clamp(4.5rem,9vw,8rem)}
+.footer-columns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,3vw,3rem)}
+.footer-column{display:flex;flex-direction:column;align-items:center;gap:.8rem;min-width:0;text-align:center}
+.footer-column h2{font-size:.8rem;letter-spacing:.11em;font-weight:700;margin-bottom:.5rem}
+.footer-column a,.footer-column p,.footer-link{color:inherit;font-size:1rem;line-height:1.4}
+.footer-column a{text-decoration:none}
+.footer-column a:hover,.footer-column a:focus-visible,.footer-link:hover,.footer-link:focus-visible{text-decoration:underline;text-underline-offset:.2em}
+.footer-link{border:0;background:none;padding:0;font-family:inherit;text-align:center;cursor:pointer}
+.copyright{margin-top:clamp(3rem,6vw,5rem);text-align:center;font-size:.7rem;letter-spacing:.04em;line-height:1.1}
+@media(max-width:950px){.site-header{gap:.7rem;padding-inline:1rem}.header-brand{width:150px}.header-nav{gap:1rem}.header-nav a{font-size:.7rem}.gold-button{min-width:65px;padding:.5rem}}
+@media(max-width:700px){html{scroll-padding-top:114px}.site-header{min-height:114px;grid-template-columns:1fr auto;grid-template-rows:auto auto;row-gap:.35rem}.header-brand{grid-column:1;grid-row:1}.header-actions{grid-column:2;grid-row:1}.header-nav{grid-column:1/-1;grid-row:2;gap:clamp(1rem,6vw,2.5rem)}.footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:3rem}.footer-wordmark{margin-bottom:4rem}}
+@media(max-width:430px){.footer-columns{grid-template-columns:1fr;row-gap:2.5rem}.hero h1{font-size:clamp(2.6rem,13vw,4rem)}.menu-section h2,.about-section h2,.reservations-section h2{font-size:clamp(3rem,16vw,5rem)}.header-brand{width:130px}.gold-button{min-width:58px;min-height:38px;font-size:.68rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.site-header,.gold-button{transition:none}}
